@@ -22,8 +22,11 @@ const createClgData=async (req,res)=>{
     
     if(!fullName)
     return res.status(400).send({status: false, msg : "FullName of college required"});
-    if(!valid.isValidateName(fullName)) return res.status(400).send({msg:"please enter valid fullName"})
+    if(!valid.isValidateName(fullName)) return res.status(400).send({status: false, msg:"please enter valid fullName"})
+
     if(!logoLink) return res.status(400).send({msg:"Please enter LogoLink"})
+    if(!valid.isValidhttp(logoLink)) return res.status(400).send({status: false, msg:"Please enter Valid URL in logo"})
+
     let created= await collegeModel.create(data)
     res.status(201).send({data:created})
 }

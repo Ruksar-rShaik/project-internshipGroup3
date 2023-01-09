@@ -14,7 +14,13 @@ const isValidPhone = function(phonenumber){
     return regex.test(phonenumber)
 }
 
+const isValidhttp = function(logoLink){
+    const re =/\b(https?|ftp|file):\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|]/
+    return re.test(logoLink)
+}
+
 
 module.exports.isValidateEmail = isValidateEmail
 module.exports.isValidateName = isValidateName
 module.exports.isValidPhone = isValidPhone
+module.exports.isValidhttp = isValidhttp
