@@ -46,7 +46,7 @@ const collegeDetails = async function (req, res) {
       let logoLink = check.logoLink;
   
       
-      let collegeDetail = {name: name, fullName: fullName,logoLink: logoLink,interests: getInternData}
+      let collegeDetail = {name: name, fullName: fullName,logoLink: logoLink,intern: getInternData}
   
       res.status(200).send({ status: true,  data: collegeDetail});
   
