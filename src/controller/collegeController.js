@@ -10,7 +10,16 @@ const createClgData=async (req,res)=>{
     let{name,fullName,logoLink}=data
     
     if(!name) return res.status(400).send({msg:"Name is required"})
+    
+
     if(!valid.isValidateName(name)) return res.status(400).send({msg:"please enter valid name"})
+
+    const validName = await collegeModel.findOne({name})
+    if(validName){
+      return res.status(400).send({status: false, msg: `College Name is already registered`})
+    }
+
+    
     if(!fullName)
     return res.status(400).send({status: false, msg : "FullName of college required"});
     if(!valid.isValidateName(fullName)) return res.status(400).send({msg:"please enter valid fullName"})
@@ -33,7 +42,7 @@ const collegeDetails = async function (req, res) {
       let check = await collegeModel.findOne({name: data.collegeName, isDeleted: false })
       
       if (!check) return res.status(404).send({ status: false, msg: "college name not found"});
-  
+      
       let collegeId = check._id 
   
       let getInternData = await internModel.find({ collegeId: collegeId, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 })
@@ -41,12 +50,12 @@ const collegeDetails = async function (req, res) {
       if (!getInternData.length) return res.status(404).send({ status: false, msg: "No Details available"});
   
       
-      let name = check.collegeName;
+      let name = check.name;
       let fullName = check.fullName;
       let logoLink = check.logoLink;
   
       
-      let collegeDetail = {name: name, fullName: fullName,logoLink: logoLink,intern: getInternData}
+      let collegeDetail = {name: name, fullName: fullName,logoLink: logoLink,interns: getInternData}
   
       res.status(200).send({ status: true,  data: collegeDetail});
   

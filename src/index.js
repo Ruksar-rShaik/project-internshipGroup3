@@ -1,11 +1,11 @@
-const bodyParser = require("body-parser")
-const express=require("express")
+
+const express = require("express")
 const mongoose=require("mongoose")
 const app=express()
 const route = require('./router/router')
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
 mongoose.set('strictQuery', false);
 mongoose.connect("mongodb+srv://Ruksar:1ststep@ruksar.cg402ym.mongodb.net/test",{
@@ -16,6 +16,6 @@ mongoose.connect("mongodb+srv://Ruksar:1ststep@ruksar.cg402ym.mongodb.net/test",
 
 app.use('/', route)
 
-app.listen(process.env.PORT || 3000,function(){
-    console.log("Express app running on port " + (process.env.PORT || 3000))
+app.listen(3000,function(){
+    console.log("Express app running on port " + (3000))
 });

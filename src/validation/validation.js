@@ -9,7 +9,12 @@ const isValidateName = function(name){
     return regex.test(name)
 } 
 
+const isValidPhone = function(phonenumber){
+    const regex = /^[1-9]\d*$/
+    return regex.test(phonenumber)
+}
 
 
 module.exports.isValidateEmail = isValidateEmail
 module.exports.isValidateName = isValidateName
+module.exports.isValidPhone = isValidPhone

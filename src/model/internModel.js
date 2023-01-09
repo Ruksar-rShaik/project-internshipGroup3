@@ -21,8 +21,8 @@ const interModel = new mongoose.Schema({
 
     mobile: {
         type: String,
-        required: true,
-        unique: true
+        required: true
+        
     },
     collegeId: {
         type: ObjectId,

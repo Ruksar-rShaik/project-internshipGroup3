@@ -6,15 +6,23 @@ const interns = async function(req,res){
     try{
     let data = req.body;
     let {name,mobile,email,collegeName} = data;
-    console.log(collegeName)
+   
     if(!name)
     return res.status(400).send({status: false, msg : "name is required"});
     if(!valid.isValidateName(name))
     return res.status(400).send({status: false, msg : "Enter valid Name"});
 
-
     if(!valid.isValidateEmail(email))
     return res.status(400).send({status:false, msg : "email is required"});
+
+    const validEmail = await internModel.findOne({email})
+    
+    if (validEmail) {
+      return res.status(400).send({
+        status: false,
+        msg: `${email} email address is already registered`,
+      });
+    }
 
     if(!mobile)
     return res.status(400).send({status:false, msg: "Mobile is required"});
@@ -23,6 +31,16 @@ const interns = async function(req,res){
         return res.status(400).send({status:false, msg: "Mobile Number should be 10 digit"});
 
     }
+    if(!valid.isValidPhone(mobile)){
+        return res.status(400).send({status:false, msg: "Please enter valid number"});
+    }
+
+    const validPhone = await internModel.findOne({mobile})
+    if(validPhone){
+        return res.status(400).send({status: false, 
+            msg : `${mobile} Mobile Number is already registered`})
+    }
+    
     if(!collegeName)
     return res.status(400).send({status:false, msg: "please provide collegeName"});
     
