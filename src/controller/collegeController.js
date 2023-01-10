@@ -3,7 +3,7 @@ const internModel = require("../model/internModel")
 const valid = require("../validation/validation")
 
 
-const createClgData = async function(req, res){
+const createClgData = async function (req, res) {
 
   try {
     let data = req.body
@@ -19,7 +19,14 @@ const createClgData = async function(req, res){
       return res.status(400).send({ status: false, message: "FullName of college required" });
     if (!valid.isValidateName(fullName)) return res.status(400).send({ status: false, message: "please enter valid fullName" })
 
-    const validName = await collegeModel.findOne({ name })
+    const validfullName = await collegeModel.findOne({ fullName })
+
+    if (validfullName) {
+        return res.status(400).send({
+            status: false, message: `${fullName}  is already registered`,
+        });
+    }
+    const validName = await collegeModel.findOne({name})
     if (validName) {
       return res.status(400).send({ status: false, message: `College Name is already registered` })
     }
@@ -44,11 +51,15 @@ const collegeDetails = async function (req, res) {
   try {
 
     let data = req.query
-
+    
     if (Object.keys(data).length === 0) return res.status(400).send({ status: false, message: "Please Enter College Name" });
+    data.collegeName = data.collegeName.trim()
     if (Object.values(data) == "") return res.status(400).send({ status: false, message: "Please enter value" })
-    let check = await collegeModel.findOne({ name: data.collegeName, isDeleted: false })
+   
+    
+    if (!data.collegeName) return res.status(400).send({ status: false, message: "Please provide college name" })
 
+    const check = await collegeModel.findOne({$or : [{fullName:data.collegeName},{name:data.collegeName}],isDeleted:false})
     if (!check) return res.status(404).send({ status: false, message: "college name not found" });
 
     let collegeId = check._id

@@ -15,7 +15,7 @@ const isValidPhone = function (phonenumber) {
 }
 
 const isValidhttp = function (logoLink) {
-    const re = /\b(https?|ftp|file):\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|]/
+    const re = /\b(https?|ftp|file):\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|](.jpg|.JPG|.gif|.GIF|.doc|.DOC|.pdf|.PDF|.jpeg|.jfif)/
     return re.test(logoLink)
 }
 
