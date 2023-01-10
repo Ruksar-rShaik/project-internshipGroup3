@@ -51,8 +51,6 @@ const interns = async function (req, res) {
             return res.status(400).send({ status: false, message: `${collegeName}  is not found` })
         }
 
-        if (Object.keys(NamedId).length === 0)
-            return res.status(400).send({ status: false, message: "No data in the Database of your collegeName" });
         data.collegeId = NamedId._id;
 
         let saveIntern = await internModel.create(data);
