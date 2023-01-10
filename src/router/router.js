@@ -1,6 +1,6 @@
 const express = require('express')
-const clgController=require('../controller/collegeController')
-const internController=require('../controller/internController')
+const clgController = require('../controller/collegeController')
+const internController = require('../controller/internController')
 const router = express.Router()
 
 
@@ -11,9 +11,9 @@ router.get('/functionup/collegeDetails', clgController.collegeDetails)
 
 
 
-router.all("/*",function(req,res){
-    res.status(400).send({status : false, msg:"invalid http request"})
+router.all("/*", function (req, res) {
+    res.status(400).send({ status: false, msg: "invalid http request" })
 })
 
 
-module.exports=router
+module.exports = router

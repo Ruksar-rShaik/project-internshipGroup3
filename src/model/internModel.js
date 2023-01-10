@@ -3,10 +3,10 @@ const mongoose = require('mongoose')
 const ObjectId = mongoose.Schema.Types.ObjectId
 
 const interModel = new mongoose.Schema({
-    name : {
+    name: {
         type: String,
         required: true,
-        lowercase : true,
+        lowercase: true,
         trim: true
 
     },
@@ -14,27 +14,28 @@ const interModel = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique : true,
-        lowercase : true,
+        unique: true,
+        lowercase: true,
         trim: true
     },
 
     mobile: {
         type: String,
         required: true
-        
+
     },
     collegeId: {
         type: ObjectId,
         ref: "college",
-       
+
     },
     isDeleted: {
-        type: Boolean, 
+        type: Boolean,
         default: false
-    }},
+    }
+},
     {
-        timestamp:true
+        timestamp: true
     })
 
-    module.exports = mongoose.model('intern', interModel)
+module.exports = mongoose.model('intern', interModel)
